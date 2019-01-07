@@ -14,5 +14,5 @@ $ yarn start
 - Tree-shaking
 - Code inspection
 - Code Splitting
--normalizr
--reselect
+- normalizr
+- reselect
