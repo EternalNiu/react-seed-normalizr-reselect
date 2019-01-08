@@ -2,9 +2,9 @@ import '@babel/polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import {applyMiddleware} from 'redux';
+import {applyMiddleware, compose} from 'redux';
 import {Provider} from 'react-redux';
-import {ConnectedRouter, routerMiddleware} from 'react-router-redux';
+import {ConnectedRouter, routerMiddleware} from 'connected-react-router';
 import {createBrowserHistory as createHistory} from 'history';
 import createSagaMiddleware from 'redux-saga';
 import logger from 'redux-logger';
@@ -12,11 +12,13 @@ import logger from 'redux-logger';
 import configureStore from './store';
 import App from './app';
 import rootSaga from './saga';
+import createReducer from './reducer';
 
 /**
  * Contains HTML5 browser history instance
  */
-const history = createHistory();
+/* eslint-disable import/prefer-default-export */
+export const history = createHistory();
 
 /**
  * Represents history middleware to be injected into redux
@@ -39,7 +41,10 @@ if (process.env.NODE_ENV !== 'production') {
  * Logger must be the last middleware in chain,
  * otherwise it will log thunk and promise, not actual actions
  */
-const store = configureStore(applyMiddleware(...middlewares));
+const store = configureStore(
+  createReducer(history),
+  compose(applyMiddleware(...middlewares))
+);
 
 sagaMiddleware.run(rootSaga);
 

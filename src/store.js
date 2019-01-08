@@ -4,15 +4,14 @@
  */
 import {createStore} from 'redux';
 
-import createReducer from './reducer';
-
 /**
  * Factory composing react store with reducers and middlewares
+ * @param  {Object} rootReducer - Root reducer with router state
  * @param  {Object} initialState - Instance by calling applyMiddleware
  * @return {Store}
  */
-export default function configureStore(initialState) {
-  const store = createStore(createReducer(), initialState);
+export default function configureStore(rootReducer, initialState) {
+  const store = createStore(rootReducer, initialState);
 
   // Enable Webpack hot module replacement for reducers
   // if (module.hot) {

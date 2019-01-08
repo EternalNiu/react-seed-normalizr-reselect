@@ -16,3 +16,5 @@ $ yarn start
 - Code Splitting
 - normalizr
 - reselect
+- Use connected-react-router library instead of react-router-redux
+- Upgrade to Babel 7
